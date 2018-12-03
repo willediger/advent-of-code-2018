@@ -19,6 +19,9 @@ def boundary(str):
     bottom_right_y = top_left_y + int(split_on_width[1]) - 1
     return ((top_left_x, top_left_y), (bottom_right_x, bottom_right_y))
 
+def get_id(str):
+    return
+
 def intersection(boundary1, boundary2):
     min_x_1 = boundary1[0][0]
     max_x_1 = boundary1[1][0]
@@ -49,15 +52,14 @@ def intersected_pixels(single_intersection):
 boundaries = list(map(lambda x: boundary(x), file_array))
 
 intersections = []
-intersections_count = []
+intersections_count = [0] * file_array_len
 for i in range(0, file_array_len):
-    intersections_count.append(0)
     for j in range(i + 1, file_array_len):
         intersect = intersection(boundaries[i], boundaries[j])
         if intersect is not None:
             intersections.append(intersect)
             intersections_count[i] += 1
-
+            intersections_count[j] += 1
 
 intersected_pixels_list = list(map(lambda x: intersected_pixels(x), intersections))
 
@@ -67,6 +69,11 @@ intersected_pixels_count = len(intersected_pixels_set)
 
 print(intersected_pixels_count)
 # 115242
+
+index_with_no_intersections = intersections_count.index(0)
+id_of_no_intersections = get_id(file_array[index_with_no_intersections])
+
+print(id_of_no_intersections)
 
 test_str = '#1 @ 1,3: 4x4'
 expected_result = ((2, 4), (5, 7))
