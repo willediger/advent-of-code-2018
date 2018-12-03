@@ -2,7 +2,7 @@ from functools import reduce
 from collections import Counter
 # import numpy
 
-file_input = open('Day03/input', 'r')
+file_input = open('Day03/test_input', 'r')
 file_array = file_input.read().splitlines()
 file_input.close()
 
@@ -46,15 +46,17 @@ def intersected_pixels(single_intersection):
             intersected_pixels_running.add((i, j))
     return intersected_pixels_running
 
-
 boundaries = list(map(lambda x: boundary(x), file_array))
 
 intersections = []
+intersections_count = []
 for i in range(0, file_array_len):
+    intersections_count.append(0)
     for j in range(i + 1, file_array_len):
         intersect = intersection(boundaries[i], boundaries[j])
         if intersect is not None:
             intersections.append(intersect)
+            intersections_count[i] += 1
 
 
 intersected_pixels_list = list(map(lambda x: intersected_pixels(x), intersections))
