@@ -19,6 +19,53 @@ def boundary(str):
     bottom_right_y = top_left_y + int(split_on_width[1]) - 1
     return ((top_left_x, top_left_y), (bottom_right_x, bottom_right_y))
 
+def intersection(boundary1, boundary2):
+    min_x_1 = boundary1[0][0]
+    max_x_1 = boundary1[1][0]
+    min_x_2 = boundary2[0][0]
+    max_x_2 = boundary2[1][0]
+    min_y_1 = boundary1[0][1]
+    max_y_1 = boundary1[1][1]
+    min_y_2 = boundary2[0][1]
+    max_y_2 = boundary2[1][1]
+    x_collision = min_x_1 <= min_x_2 <= max_x_1 or min_x_2 <= min_x_1 <= max_x_2
+    y_collision = min_y_1 <= min_y_2 <= max_y_1 or min_y_2 <= min_y_1 <= max_y_2
+    if x_collision and y_collision:
+        min_common_x = max(min_x_1, min_x_2)
+        max_common_x = min(max_x_2, max_x_1)
+        min_common_y = max(min_y_1, min_y_2)
+        max_common_y = min(max_y_2, max_y_1)
+        return ((min_common_x, min_common_y), (max_common_x, max_common_y))
+    else:
+        return None
+
+def intersected_pixels(single_intersection):
+    intersected_pixels_running = set()
+    for i in range(single_intersection[0][0], single_intersection[1][0] + 1):
+        for j in range(single_intersection[0][1], single_intersection[1][1] + 1):
+            intersected_pixels_running.add((i, j))
+    return intersected_pixels_running
+
+
+boundaries = list(map(lambda x: boundary(x), file_array))
+
+intersections = []
+for i in range(0, file_array_len):
+    for j in range(i + 1, file_array_len):
+        intersect = intersection(boundaries[i], boundaries[j])
+        if intersect is not None:
+            intersections.append(intersect)
+
+
+intersected_pixels_list = list(map(lambda x: intersected_pixels(x), intersections))
+
+intersected_pixels_set = set.union(*intersected_pixels_list)
+
+intersected_pixels_count = len(intersected_pixels_set)
+
+print(intersections)
+
+
 test_str = '#1 @ 1,3: 4x4'
 expected_result = ((2, 4), (5, 7))
 test_result = boundary(test_str)
