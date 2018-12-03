@@ -1,7 +1,3 @@
-from functools import reduce
-from collections import Counter
-# import numpy
-
 file_input = open('Day03/input', 'r')
 file_array = file_input.read().splitlines()
 file_input.close()
