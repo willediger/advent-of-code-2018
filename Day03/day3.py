@@ -2,7 +2,7 @@ from functools import reduce
 from collections import Counter
 # import numpy
 
-file_input = open('Day03/test_input', 'r')
+file_input = open('Day03/input', 'r')
 file_array = file_input.read().splitlines()
 file_input.close()
 
@@ -63,8 +63,8 @@ intersected_pixels_set = set.union(*intersected_pixels_list)
 
 intersected_pixels_count = len(intersected_pixels_set)
 
-print(intersections)
-
+print(intersected_pixels_count)
+# 115242
 
 test_str = '#1 @ 1,3: 4x4'
 expected_result = ((2, 4), (5, 7))
