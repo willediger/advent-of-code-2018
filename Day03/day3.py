@@ -2,7 +2,7 @@ from functools import reduce
 from collections import Counter
 # import numpy
 
-file_input = open('Day03/test_input', 'r')
+file_input = open('Day03/input', 'r')
 file_array = file_input.read().splitlines()
 file_input.close()
 
@@ -20,7 +20,7 @@ def boundary(str):
     return ((top_left_x, top_left_y), (bottom_right_x, bottom_right_y))
 
 def get_id(str):
-    return
+    return str.split("#")[1].split(" ")[0]
 
 def intersection(boundary1, boundary2):
     min_x_1 = boundary1[0][0]
@@ -74,6 +74,7 @@ index_with_no_intersections = intersections_count.index(0)
 id_of_no_intersections = get_id(file_array[index_with_no_intersections])
 
 print(id_of_no_intersections)
+# 1046
 
 test_str = '#1 @ 1,3: 4x4'
 expected_result = ((2, 4), (5, 7))
