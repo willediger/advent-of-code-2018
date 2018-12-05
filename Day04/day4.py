@@ -71,6 +71,8 @@ for m in range(0, 60):
         max_min_amt = guards[max_sum_guard][1][m][1]
         max_min = m
 
+print('a', max_sum_guard_id * max_min)
+
 abs_max_min_amt = 0
 for g in range(0, len(guards)):
     max_min_amt = 0
@@ -83,5 +85,4 @@ for g in range(0, len(guards)):
         abs_max_min = max_min
         abx_max_guard_id = guards[g][0]
 
-print('a', max_sum_guard_id * max_min)
 print('b', abx_max_guard_id * abs_max_min)
