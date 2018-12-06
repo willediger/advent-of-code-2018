@@ -1,8 +1,7 @@
-from collections import defaultdict
-from collections import namedtuple
+from collections import Counter
 import re
 
-file_input = open('Day06/input', 'r')
+file_input = open('Day06/test_input', 'r')
 file_array = file_input.read().splitlines()
 file_input.close()
 
@@ -18,6 +17,15 @@ for y in range(0, max_loc[1] + 1):
 def distance(loc1, loc2):
     return abs(loc2[0] - loc1[0]) + abs(loc2[1] - loc1[1])
 
+
+for x in range(0, len(grid[0])):
+    for y in range(0, len(grid)):
+        location_distances = [distance([x,y], loc) for loc in locations]
+        min_distance = min(location_distances)
+        if location_distances.count(min_distance) == 1:
+            grid[y][x] = location_distances.index(min_distance)
+        else:
+            grid[y][x] = -1
 
 
 breakpoint()
