@@ -1,7 +1,16 @@
 from collections import Counter
 import re
 
-file_input = open('Day06/input', 'r')
+
+test = True
+day = 6
+
+input_path = 'Day' + format(day, '02d') + '/'
+if test:
+    input_path += 'test_'
+input_path += 'input'
+
+file_input = open(input_path, 'r')
 file_array = file_input.read().splitlines()
 file_input.close()
 
