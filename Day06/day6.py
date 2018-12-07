@@ -2,7 +2,7 @@ from collections import Counter
 import re
 
 
-test = True
+test = False
 day = 6
 
 input_path = 'Day' + format(day, '02d') + '/'
@@ -19,9 +19,13 @@ locations = [[int(i) for i in re.findall(r'\d+', line)] for line in file_array]
 min_loc = [min([loc[0] for loc in locations]), min([loc[1] for loc in locations])]
 max_loc = [max([loc[0] for loc in locations]), max([loc[1] for loc in locations])]
 
-grid = []
-for y in range(0, max_loc[1] + 1):
-    grid.append([0]*(max_loc[0]+1))
+def blank_grid():
+    grid = []
+    for y in range(0, max_loc[1] + 1):
+        grid.append([0]*(max_loc[0]+1))
+    return grid
+
+grid = blank_grid()
 
 def distance(loc1, loc2):
     return abs(loc2[0] - loc1[0]) + abs(loc2[1] - loc1[1])
@@ -58,3 +62,16 @@ area_counts_without_infinite = {x: area_counts[x] for x in area_counts if x not 
 max_area = max(area_counts_without_infinite.values())
 
 print('a', max_area)
+
+distance_max_threshold = 10000
+
+grid2 = blank_grid()
+
+locations_with_total_distances_lower_than_threshold = 0
+for x in range(0, grid_width):
+    for y in range(0, grid_height):
+        distance_sum = sum([distance([x,y], loc) for loc in locations])
+        if distance_sum < distance_max_threshold:
+            locations_with_total_distances_lower_than_threshold += 1
+
+print('b', locations_with_total_distances_lower_than_threshold)
