@@ -66,7 +66,7 @@ def meta_total2(nums):
         for i in range(len(meta)):
             try:
                 meta_sum += children[meta[i]-1]
-            except:
+            except Exception:
                 pass
     
     return [meta_sum, remaining_nums]
