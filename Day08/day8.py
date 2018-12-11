@@ -18,6 +18,7 @@ file_input.close()
 license_strs = file_array[0].split()
 license_numbers = [int(e) for e in license_strs]
 
+
 def meta_total(nums):
     children_count = nums[0]
     meta_count = nums[1]
@@ -35,10 +36,43 @@ def meta_total(nums):
     
     return [children_total + sum(meta), remaining_nums]
 
-result = meta_total(license_numbers)
+if do_a:
+    result = meta_total(license_numbers)
 
+    total_meta = result[0]
+
+    print('a', total_meta)
+
+
+def meta_total2(nums):
+    children_count = nums[0]
+    meta_count = nums[1]
+
+    remaining_nums = nums[2:]
+
+    children = []
+    for c in range(children_count):
+        child = meta_total2(remaining_nums)
+        remaining_nums = child[1]
+        children.append(child[0])
+    
+    meta = remaining_nums[:meta_count]
+    remaining_nums = remaining_nums[meta_count:]
+
+    meta_sum = 0
+    if children_count == 0:
+        meta_sum = sum(meta)
+    else:
+        for i in range(len(meta)):
+            try:
+                meta_sum += children[meta[i]-1]
+            except:
+                pass
+    
+    return [meta_sum, remaining_nums]
+
+
+result = meta_total2(license_numbers)
 total_meta = result[0]
 
-print('a', total_meta)
-
-breakpoint()
+print('b', total_meta)
